@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <!-- Soft futuristic glow -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="white" flood-opacity="0.5"/>
+    </filter>
+    
+    <!-- Mask to create the double outline effect -->
+    <mask id="cutout">
+      <rect width="100%" height="100%" fill="white" />
+      <!-- The inner cut (black stroke erases the middle of the white stroke) -->
+      <path d="M 30 15 L 30 85 L 50 85 C 75 85 80 75 80 50 C 80 25 75 15 50 15 Z" 
+            stroke="black" stroke-width="5" fill="none" stroke-linecap="butt" stroke-linejoin="miter" />
+    </mask>
+  </defs>
+
+  <!-- The Letter D -->
+  <!-- Outer thick stroke (12px), masked by inner stroke (5px) creates two parallel lines of ~3.5px width -->
+  <path d="M 30 15 L 30 85 L 50 85 C 75 85 80 75 80 50 C 80 25 75 15 50 15 Z" 
+        stroke="white" 
+        stroke-width="12" 
+        fill="none" 
+        stroke-linecap="butt" 
+        stroke-linejoin="miter"
+        mask="url(#cutout)" 
+        filter="url(#glow)" />
+</svg>
