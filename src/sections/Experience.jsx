@@ -21,11 +21,18 @@ const experiences = [
       "Developed scalable, high-performance web applications using Next.js and React.js while collaborating with Chaya Digital Agency on real-time projects, contributing to feature development and UI/UX enhancements.",
   },
 {
-    role: "Graduate Engineer",
-    company: "HCL Technologies",
-    duration: "2024 - 2025",
+    role: "Google Student Ambassador",
+    company: "Google",
+    duration: "2025 - Present",
     description:
-      "Built the frontend of a GenAI-powered PV Intake Application using Next.js and TypeScript for a U.S life sciences client, enabling automated patient report processing across global regions.",
+      "As a Google Student Ambassador, I actively promote Google's technologies and initiatives on campus, organize tech events, and foster a community of learners passionate about innovation and technology.",
+  },
+  {
+    role: "Google Student Ambassador",
+    company: "Google",
+    duration: "2025 - Present",
+    description:
+      "As a Google Student Ambassador, I actively promote Google's technologies and initiatives on campus, organize tech events, and foster a community of learners passionate about innovation and technology.",
   },
 
 
@@ -41,7 +48,8 @@ function ExperienceItem({ exp, idx, start, end, scrollYProgress, layout }) {
   const cardOpacity = useTransform(scrollYProgress, [start, end], [0, 1]);
 
   // Checks if card should be displayed above or below the timeline line
-  const isAbove = idx % 2 === 0;
+  // Force all items below the line for a single-line view
+  const isAbove = false;
   // Animates vertical movement of cards for desktop layout
   const cardY = useTransform(scrollYProgress, [start, end], [isAbove ? 30 : -30, 0]);
   // Animates horizontal movement of cards for mobile layout
@@ -123,6 +131,36 @@ const Experience = () => {
     [numExperiences]
   );
 
+  // Sliding Logic: Desktop only, > 3 items
+  const shouldSlide = !isMobile && numExperiences > 3;
+  // Calculate width so 3 items are always visible (N/3 * 100%)
+  const slideWidthPct = shouldSlide ? (numExperiences / 3) * 100 : 100;
+  
+  // Custom Scroll Transformation
+  // 0 to 0.5 (approx): Fill up the first 3 items (no slide)
+  // 0.5 to 1.0: Slide the rest
+  
+  // If we have 4 items. 
+  // Timeline:
+  // 0.0 - 0.75: Reveal items 1, 2, 3 (Thresholds handle this via ExperienceItem opacity?) 
+  // BUT the xScroll currently starts at 0.
+  
+  // We want xScroll to stay at 0 until we've "reached" the 3rd item.
+  // The thresholds are evenly distributed: 0.25, 0.5, 0.75, 1.0. 
+  // So at 0.75, item 3 is fully "done".
+  // So we should start sliding after the point where the 3rd item is fully active.
+  
+  // Let's create a custom range for the slide.
+  // Start sliding after (3 / N) progress.
+  const slideStart = shouldSlide ? 3 / numExperiences : 0;
+  
+  const xScroll = useTransform(
+      scrollYProgress, 
+      [slideStart, 1], // Start sliding ONLY after 3rd item's "time"
+      ["0%", `-${slideWidthPct - 100}%`],
+      { clamp: true } // Don't slide backwards before slideStart
+  );
+
   // Animate timeline line width (desktop) and height (mobile)
   const lineWidth = useTransform(scrollYProgress, (v) => `${v * 100}%`);
   const lineHeight = useTransform(scrollYProgress, (v) => `${v * 100}%`);
@@ -130,38 +168,41 @@ const Experience = () => {
   return (
     <section id="experience" className="relative bg-black text-white">
       {/* Main container with dynamic height */}
-      <div ref={sceneRef} style={{ height: `${SCENE_HEIGHT_VH}vh`, minHeight: "120vh" }} className="relative">
+      <div ref={sceneRef} style={{ height: `${SCENE_HEIGHT_VH}vh`, minHeight: "150vh" }} className="relative">
         <div className="sticky top-0 h-screen flex flex-col">
           {/* Section Title */}
           <div className="shrink-0 px-6 pt-8">
             <h2 className="text-4xl sm:text-5xl font-semibold mt-5 text-center">Experience</h2>
           </div>
           {/* Timeline container */}
-          <div className="flex-1 flex items-center justify-center px-6 pb-10">
+          <div className="flex-1 flex items-start justify-center px-6 pb-10 overflow-hidden pt-32">
             {/* Desktop Timeline */}
             <div className="relative w-full max-w-7xl hidden md:block">
-              {/* Horizontal timeline line */}
-              <div className="relative h-[6px] bg-white/15 rounded">
-                <motion.div className="absolute left-0 top-0 h-[6px] bg-white rounded origin-left" style={{ width: lineWidth }} />
-              </div>
-              {/* Experience items mapped for desktop */}
-              <div className="relative flex justify-between mt-0">
-                {experiences.map((exp, idx) => {
-                  const start = idx === 0 ? 0 : thresholds[idx - 1];
-                  const end = thresholds[idx];
-                  return (
-                    <ExperienceItem
-                      key={`${exp.company}-${exp.role}-${idx}`}
-                      exp={exp}
-                      idx={idx}
-                      start={start}
-                      end={end}
-                      scrollYProgress={scrollYProgress}
-                      layout="desktop"
-                    />
-                  );
-                })}
-              </div>
+              {/* Sliding Wrapper */}
+              <motion.div style={{ width: `${slideWidthPct}%`, x: shouldSlide ? xScroll : 0 }}>
+                  {/* Horizontal timeline line */}
+                  <div className="relative h-[6px] bg-white/15 rounded">
+                    <motion.div className="absolute left-0 top-0 h-[6px] bg-white rounded origin-left" style={{ width: lineWidth }} />
+                  </div>
+                  {/* Experience items mapped for desktop */}
+                  <div className="relative flex justify-between mt-0">
+                    {experiences.map((exp, idx) => {
+                      const start = idx === 0 ? 0 : thresholds[idx - 1];
+                      const end = thresholds[idx];
+                      return (
+                        <ExperienceItem
+                          key={`${exp.company}-${exp.role}-${idx}`}
+                          exp={exp}
+                          idx={idx}
+                          start={start}
+                          end={end}
+                          scrollYProgress={scrollYProgress}
+                          layout="desktop"
+                        />
+                      );
+                    })}
+                  </div>
+              </motion.div>
             </div>
             {/* Mobile Timeline */}
             <div className="relative w-full max-w-md md:hidden">

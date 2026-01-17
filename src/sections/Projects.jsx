@@ -125,7 +125,7 @@ export default function Projects() {
           {projects.map((project, idx) => (
             <div
               key={project.title}
-              className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ${
+              className={`absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ${
                 activeIndex === idx ? "opacity-100 z-20" : "opacity-0 z-0 sm:z-10"
               }`}
               style={{ width: "85%", maxWidth: "1200px" }}
@@ -140,9 +140,9 @@ export default function Projects() {
                     exit={{ opacity: 0, y: 30 }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
                     className={`block text-center text-[clamp(2rem,6vw,5rem)] text-white/95 sm:absolute sm:-top-21 sm:left-[35%] lg:left-[-5%] sm:mb-0 font-bangers italic font-semibold ${
-                      isMobile ? "-mt-25" : ""
+                      isMobile ? "-mt-20" : ""
                     }`}
-                    style={{ zIndex: 5, textAlign: isMobile ? "center" : "left" }}
+                    style={{ zIndex: 30, textAlign: isMobile ? "center" : "left" }}
                   >
                     {project.title}
                   </MH3>
@@ -151,8 +151,8 @@ export default function Projects() {
 
               {/* Project Image Wrapper */}
               <div
-                className={`relative w-full overflow-hidden bg-black/20 shadow-2xl md:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.7)] ${
-                  isMobile ? "mb-6 rounded-lg" : "mb-10 sm:mb-12 rounded-xl"
+                className={`w-full overflow-hidden shadow-2xl md:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.7)] ${
+                  isMobile ? "mb-6 mt-[84px] rounded-lg" : "mb-10 mt-[20px] sm:mb-12 rounded-xl"
                 } h-[62vh] sm:h-[66vh]`}
                 style={{ zIndex: 10, transition: "box-shadow 250ms ease" }}
               >
@@ -169,21 +169,13 @@ export default function Projects() {
                   }}
                   loading="lazy"
                 />
-                {/* Subtle gradient overlay for better readability */}
-                <div
-                  className="pointer-events-none absolute inset-0"
-                  style={{
-                    zIndex: 11,
-                    background: "linear-gradient(180deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0) 40%)",
-                  }}
-                />
               </div>
             </div>
           ))}
         </div>
 
         {/* View Project Button */}
-        <div className={`absolute ${isMobile ? "bottom-20" : "bottom-10"}`}>
+        <div className={`absolute ${isMobile ? "bottom-12" : "bottom-3"}`}>
           <a
             href={activeProject?.link}
             target="_blank"

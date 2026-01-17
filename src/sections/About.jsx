@@ -24,13 +24,13 @@ export default function About() {
     });
     resizeObserver.observe(sectionRef.current);
 
-    const particleCount = 500; // Increased count for better detail
+    const particleCount = 700; // Increased count for better detail
     const particles = [];
     const connectionDistance = 60;
     const mouse = { x: -1000, y: -1000 };
 
     // Function to get points inside a top-down brain shape (2 hemispheres)
-    const getBrainPoint = () => {
+    const getBrainPoint = (isOutline = false) => {
       // Top-Down View (Axial View) - Organic Ovoid Shape
       // Two hemispheres, smoother curve, no sharp edges
       
@@ -38,40 +38,80 @@ export default function About() {
       let x = 0, y = 0;
       
       while (!inside) {
-        // Random point in range
-        x = (Math.random() - 0.5) * 2.5; 
-        y = (Math.random() - 0.5) * 2.5;
+        if (isOutline) {
+            // Generate points specifically ON the boundary
+            // We can pick a random angle and side
+            const theta = Math.random() * Math.PI * 2;
+            const side = Math.random() > 0.5 ? 1 : -1;
+            
+            // Map theta (0-2PI) to Y range (-1 to 1) for distribution?
+            // Actually, let's just use the parametric logic:
+            // y goes from -0.9 to 0.9 roughly.
+            // Let's generate y directly
+            y = (Math.random() - 0.5) * 2.0;
 
-        // No forced gap check (Math.abs(x) < 0.08) to avoid sharp inner edges.
-        // The separation will come from the offset centers.
+            // Constrain y to [-1, 1] essentially
+            if (y < -0.95 || y > 0.95) continue;
 
-        // Hemisphere Centers
-        // Left: -0.5, Right: +0.5
-        // Increased offset to create a clear gap
-        const xSign = x >= 0 ? 1 : -1;
-        const xCent = 0.5 * xSign; 
-        
-        const dx = x - xCent;
-        const dy = y;
+            const rx = 0.46 + (y * 0.06); 
+            // x = center +/- rx * cos(theta)? NO.
+            // The boundary is the ellipse edge.
+            // (x - xc)^2 / rx^2 + y^2 / ry^2 = 1
+            // x - xc = +/- rx * sqrt( 1 - y^2/ry^2 )
+            
+            const ry = 0.76;
+            const term = 1 - (y*y)/(ry*ry);
+            
+            if (term < 0) continue; 
+            
+            // Outer edge is away from center
+            // Left (xc < 0): we want the negative root -> x < xc
+            // Right (xc > 0): we want the positive root -> x > xc
+            // But we also want the inner edge (fissure)?
+            // "Outline" usually implies the heavy outer silhouette.
+            
+            const xc = 0.6 * side; // Left or Right center
+            const xOffset = rx * Math.sqrt(term);
+            
+            // We want the outer boundary specifically? 
+            // For left side, outer is x = xc - xOffset
+            // For right side, outer is x = xc + xOffset
+            // Let's also add some inner fissure points for definition
+            
+            if (Math.random() > 0.3) {
+                // Outer edge
+                x = xc + (side * xOffset);
+            } else {
+                 // Inner Fissure Edge
+                 x = xc - (side * xOffset * 0.95); // Slightly inside to define the gap
+            }
+            
+            inside = true;
+        } else {
+            // Existing Logic for "filling"
+            // Random point in range
+            x = (Math.random() - 0.5) * 2.5; 
+            y = (Math.random() - 0.5) * 2.5;
 
-        // Organic Tapering via "Egg" Geometry
-        // Narrower at Front (Top, y < 0), Wider at Back (Bottom, y > 0)
-        
-        // Base Width (Radius X)
-        // Maintained circularity but adjusted for gap
-        const rx = 0.45 + (y * 0.06); 
-        
-        // Height (Radius Y)
-        const ry = 0.75; 
+            // Hemisphere Centers
+            // Left: -0.6, Right: +0.6
+            // Increased offset to create a large central gap
+            const xSign = x >= 0 ? 1 : -1;
+            const xCent = 0.6 * xSign; 
+            
+            const dx = x - xCent;
+            const dy = y;
 
-        // Superellipse-ish for rounder shoulders / less pointy
-        // (dx/rx)^2 + (dy/ry)^2 <= 1
-        
-        const normalizedDist = (dx*dx)/(rx*rx) + (dy*dy)/(ry*ry);
+            // Organic Tapering
+            const rx = 0.46 + (y * 0.06); 
+            const ry = 0.76; 
 
-        if (normalizedDist <= 1) {
-             // Only minimal noise to avoid "perfect geometry" look, but maintain smoothness
-             if (Math.random() > 0.02) inside = true;
+            // Superellipse-ish 
+            const normalizedDist = (dx*dx)/(rx*rx) + (dy*dy)/(ry*ry);
+
+            if (normalizedDist <= 1) {
+                 if (Math.random() > 0.02) inside = true;
+            }
         }
       }
       return { x, y };
@@ -79,18 +119,15 @@ export default function About() {
 
     // Initialize particles
     for (let i = 0; i < particleCount; i++) {
-        const brainPos = getBrainPoint();
+        // Dedicate ~30% particles to defining the outline
+        const isOutline = i < particleCount * 0.3;
+        const brainPos = getBrainPoint(isOutline);
         
         // Coloring based on Lobe Position (Top-Down)
-        // Y-axis determines lobe in this view ( Top=-y, Bottom=+y )
-        // Frontal (Top): y < -0.4
-        // Parietal (Mid): -0.4 < y < 0.3
-        // Occipital (Bottom): y > 0.3
+        // ...existing code...
+        // ...
         
         let color = "#ffffff";
-        
-        // Check "Hemisphere" side for coloring nuance? 
-        // No, just lobes.
         
         if (brainPos.y < -0.4) {
             color = "#FF4d4d"; // Frontal - Bright Red
@@ -102,16 +139,17 @@ export default function About() {
 
         particles.push({
             // Chaos: scattered widely across the screen/canvas
-            // Using a range slightly larger than screen to make them come from "everywhere"
+            // ...existing code...
             chaosX: (Math.random() - 0.5) * window.innerWidth * 1.5 + window.innerWidth / 2,
             chaosY: (Math.random() - 0.5) * window.innerHeight * 1.5 + window.innerHeight / 2,
             brainXNormalized: brainPos.x,
             brainYNormalized: brainPos.y,
             x: Math.random() * window.innerWidth,
             y: Math.random() * window.innerHeight,
-            size: Math.random() * 3 + 2, // varied size
-            baseAlpha: Math.random() * 0.6 + 0.4,
-            color: color 
+            size: isOutline ? Math.random() * 2 + 2 : Math.random() * 3 + 2, // varied size
+            baseAlpha: isOutline ? 0.9 : Math.random() * 0.5 + 0.3, // Outline is more opaque
+            color: color,
+            isOutline: isOutline 
         });
     }
 
@@ -148,7 +186,7 @@ export default function About() {
         // Or simply center it as a background watermark
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2; 
-        const scale = Math.min(canvas.width, canvas.height) * 0.65; // Increased size to 65%
+        const scale = Math.min(canvas.width, canvas.height) * 0.55; // Slightly smaller size per request
 
         // Draw connections with gradient or specific colors?
         // Let's use the particle color for connections or a subtle white mix
@@ -202,9 +240,19 @@ export default function About() {
 
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            
+            // Add refined glow for outline particles
+            if (p.isOutline && state.progress > 0.5) {
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = p.color;
+            } else {
+                ctx.shadowBlur = 0;
+            }
+
             ctx.fillStyle = p.color || "#ffffff"; // Use assign color
             ctx.globalAlpha = p.baseAlpha * 0.8 + (state.progress * 0.2); 
             ctx.fill();
+            ctx.shadowBlur = 0; // Reset for next particle
             ctx.globalAlpha = 1;
         });
 
