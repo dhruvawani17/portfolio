@@ -153,7 +153,7 @@ export default function Projects() {
               <div
                 className={`w-full overflow-hidden shadow-2xl md:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.7)] ${
                   isMobile ? "mb-6 mt-2 rounded-lg" : "mb-10 mt-[20px] sm:mb-12 rounded-xl"
-                } h-[55vh] sm:h-[10vh]`}
+                } h-[55vh] sm:h-[66vh]`}
                 style={{ zIndex: 10, transition: "box-shadow 250ms ease" }}
               >
                 {/* Project Image */}
