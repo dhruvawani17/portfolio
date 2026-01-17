@@ -28,9 +28,9 @@ const experiences = [
       "As a Google Student Ambassador, I actively promote Google's technologies and initiatives on campus, organize tech events, and foster a community of learners passionate about innovation and technology.",
   },
   {
-    role: "Google Student Ambassador",
-    company: "Google",
-    duration: "2025 - Present",
+    role: "B.Tech",
+    company: "K.J Somaiya Institute of Technology",
+    duration: "2024 - Present",
     description:
       "As a Google Student Ambassador, I actively promote Google's technologies and initiatives on campus, organize tech events, and foster a community of learners passionate about innovation and technology.",
   },
