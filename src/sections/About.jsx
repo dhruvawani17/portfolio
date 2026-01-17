@@ -177,6 +177,13 @@ export default function About() {
     // Render Loop
     const render = () => {
         if (!canvas) return;
+
+        // Optimization: Skip rendering if canvas is hidden (mobile view)
+        if (canvas.offsetParent === null) {
+            requestAnimationFrame(render);
+            return;
+        }
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         // Position brain in the visual center of the section content
@@ -279,7 +286,7 @@ export default function About() {
       {/* Brain Canvas Background - positioned absolute so it overlays/underlays content */}
       <canvas 
         ref={canvasRef} 
-        className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-100"
+        className="hidden sm:block absolute inset-0 w-full h-full pointer-events-none z-0 opacity-100"
       />
 
       {/* Darker Background for high contrast */}

@@ -48,7 +48,7 @@ export default function Projects() {
   const projects = React.useMemo(
     () => [
       {
-        title: "Voice Automation Agents",
+        title: "Voice AI Agents",
         link: "https://github.com/dhruvawani17/ten-days-of-voice-agents-2025",
         bgColor: "#3d43f5ff",
         image: isMobile ? photo1 : img1, // Mobile vs desktop image
@@ -105,7 +105,7 @@ export default function Projects() {
       ref={sceneRef} 
       className="relative text-white"
       style={{
-        height: `${100 * projects.length}vh`, 
+        height: isMobile ? `${130 * projects.length}vh` : `${100 * projects.length}vh`, 
         // Section height = 100vh per project (makes scroll-based transitions work) 
         backgroundColor: activeProject.bgColor, 
         // Background changes color based on active project
@@ -116,12 +116,12 @@ export default function Projects() {
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center">
         
         {/* Section Title */}
-        <h2 className={`text-3xl font-semibold z-10 text-center ${isMobile ? "mt-4" : "mt-8"}`}>
+        <h2 className={`text-3xl font-semibold z-10 text-center ${isMobile ? "mt-6" : "mt-8"}`}>
           My Work 
         </h2>
 
         {/* Main Project Display Area */}
-        <div className={`relative w-full flex-1 flex items-center justify-center ${isMobile ? "-mt-4" : ""}`}>
+        <div className={`relative w-full flex-1 flex items-center justify-center ${isMobile ? "" : ""}`}>
           {projects.map((project, idx) => (
             <div
               key={project.title}
@@ -140,7 +140,7 @@ export default function Projects() {
                     exit={{ opacity: 0, y: 30 }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
                     className={`block text-center text-[clamp(2rem,6vw,5rem)] text-white/95 sm:absolute sm:-top-21 sm:left-[35%] lg:left-[-5%] sm:mb-0 font-bangers italic font-semibold ${
-                      isMobile ? "-mt-20" : ""
+                      isMobile ? "mb-10" : ""
                     }`}
                     style={{ zIndex: 30, textAlign: isMobile ? "center" : "left" }}
                   >
@@ -152,8 +152,8 @@ export default function Projects() {
               {/* Project Image Wrapper */}
               <div
                 className={`w-full overflow-hidden shadow-2xl md:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.7)] ${
-                  isMobile ? "mb-6 mt-[84px] rounded-lg" : "mb-10 mt-[20px] sm:mb-12 rounded-xl"
-                } h-[62vh] sm:h-[66vh]`}
+                  isMobile ? "mb-6 mt-2 rounded-lg" : "mb-10 mt-[20px] sm:mb-12 rounded-xl"
+                } h-[55vh] sm:h-[10vh]`}
                 style={{ zIndex: 10, transition: "box-shadow 250ms ease" }}
               >
                 {/* Project Image */}
@@ -175,7 +175,7 @@ export default function Projects() {
         </div>
 
         {/* View Project Button */}
-        <div className={`absolute ${isMobile ? "bottom-12" : "bottom-3"}`}>
+        <div className={`absolute ${isMobile ? "bottom-5" : "bottom-3"}`}>
           <a
             href={activeProject?.link}
             target="_blank"

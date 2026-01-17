@@ -13,6 +13,7 @@ const MusicPlayer = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [infoText, setInfoText] = useState("Wanna play music while scrolling?");
+  const [isVisible, setIsVisible] = useState(true);
   const audioRef = useRef(null);
   const lastTapTime = useRef(0);
   const clickTimeout = useRef(null);
@@ -159,8 +160,37 @@ const MusicPlayer = () => {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      // Check if mobile (using 768px as standard tablet/mobile break or 640px)
+      // User context often implies standard mobile
+      if (typeof window !== "undefined") {
+        if (window.innerWidth < 768) {
+           // Hide if scrolled past 80% of viewport
+           if (window.scrollY > window.innerHeight * 0.8) {
+             setIsVisible(false);
+           } else {
+             setIsVisible(true);
+           }
+        } else {
+           // Always visible on desktop
+           setIsVisible(true);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleScroll);
+    handleScroll(); // Initial check
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-center space-y-2">
+    <div className={`fixed bottom-6 right-6 z-50 flex flex-col items-center space-y-2 transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
       <p className="text-xs text-gray-300 italic">{infoText}</p>
 
       <audio

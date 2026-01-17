@@ -119,10 +119,11 @@ const Experience = () => {
   }, []);
 
   // Dynamic scene height based on device type and number of experiences
-  const SCENE_HEIGHT_VH = isMobile ? 100 * experiences.length * 1.6 : 100 * experiences.length * 1.2;
+  const SCENE_HEIGHT_VH = isMobile ? "auto" : 100 * experiences.length * 1.2;
 
   // Get scroll progress for animations
   const { scrollYProgress } = useScroll({ target: sceneRef, offset: ["start start", "end end"] });
+
 
   // Calculate thresholds for each experience card's animation start/end
   const numExperiences = experiences.length;
@@ -168,14 +169,14 @@ const Experience = () => {
   return (
     <section id="experience" className="relative bg-black text-white">
       {/* Main container with dynamic height */}
-      <div ref={sceneRef} style={{ height: `${SCENE_HEIGHT_VH}vh`, minHeight: "150vh" }} className="relative">
-        <div className="sticky top-0 h-screen flex flex-col">
+      <div ref={sceneRef} style={{ height: isMobile ? "auto" : `${SCENE_HEIGHT_VH}vh`, minHeight: isMobile ? "auto" : "150vh" }} className="relative">
+        <div className={`flex flex-col ${isMobile ? "relative pb-10" : "sticky top-0 h-screen"}`}>
           {/* Section Title */}
           <div className="shrink-0 px-6 pt-8">
             <h2 className="text-4xl sm:text-5xl font-semibold mt-5 text-center">Experience</h2>
           </div>
           {/* Timeline container */}
-          <div className="flex-1 flex items-start justify-center px-6 pb-10 overflow-hidden pt-32">
+          <div className={`flex-1 flex items-start justify-center px-6 pb-10 pt-32 ${isMobile ? "overflow-visible" : "overflow-hidden"}`}>
             {/* Desktop Timeline */}
             <div className="relative w-full max-w-7xl hidden md:block">
               {/* Sliding Wrapper */}
@@ -216,15 +217,28 @@ const Experience = () => {
                   const start = idx === 0 ? 0 : thresholds[idx - 1];
                   const end = thresholds[idx];
                   return (
-                    <ExperienceItem
-                      key={`${exp.company}-${exp.role}-m-${idx}`}
-                      exp={exp}
-                      idx={idx}
-                      start={start}
-                      end={end}
-                      scrollYProgress={scrollYProgress}
-                      layout="mobile"
-                    />
+                    <div key={`${exp.company}-${exp.role}-m-${idx}`} className="relative flex items-start">
+                      {/* Marker dot on mobile timeline */}
+                      <motion.div
+                        className="absolute -left-[14px] top-3 z-10 w-7 h-7 rounded-full bg-white shadow-[0_0_0_8px_rgba(255,255,255,0.1)]"
+                        initial={{ scale: 0, opacity: 0 }}
+                        whileInView={{ scale: 1, opacity: 1 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.4 }}
+                      />
+                      {/* Experience card (mobile version) */}
+                      <motion.article
+                        className="bg-gray-900/80 backdrop-blur border border-gray-700/70 rounded-xl p-5 w-[90vw] max-w-sm ml-6 shadow-lg"
+                        initial={{ opacity: 0, x: -24 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.4, delay: idx * 0.1 }}
+                      >
+                        <h3 className="text-lg font-semibold break-words">{exp.role}</h3>
+                        <p className="text-sm text-gray-400 mb-2 break-words">{exp.company} | {exp.duration}</p>
+                        <p className="text-sm text-gray-300 break-words">{exp.description}</p>
+                      </motion.article>
+                    </div>
                   );
                 })}
               </div>
