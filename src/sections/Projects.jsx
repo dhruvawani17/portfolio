@@ -48,21 +48,21 @@ export default function Projects() {
   const projects = React.useMemo(
     () => [
       {
-        title: "nk studio",
-        link: "https://www.nk.studio/",
-        bgColor: "#0d4d3d",
+        title: "Voice Automation Agents",
+        link: "https://github.com/dhruvawani17/ten-days-of-voice-agents-2025",
+        bgColor: "#3d43f5ff",
         image: isMobile ? photo1 : img1, // Mobile vs desktop image
       },
       {
-        title: "Gamily",
-        link: "https://gamilyapp.com/",
-        bgColor: "#3884d3",
+        title: "AI-Literacy Bridge",
+        link: "https://ai-literacy-bridge.vercel.app/",
+        bgColor: "#FFBF00",
         image: isMobile ? photo2 : img2,
       },
       {
-        title: "Hungry Tiger",
-        link: "https://www.eathungrytiger.com/",
-        bgColor: "#dc9317",
+        title: "Hospital Website",
+        link: "https://hospital-1-o278.vercel.app",
+        bgColor: "#9f529eff",
         image: isMobile ? photo3 : img3,
       },
     ],

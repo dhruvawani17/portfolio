@@ -6,19 +6,19 @@ import { motion, useScroll, useTransform } from "framer-motion";
 // Array of experience objects containing job details
 const experiences = [
   {
-    role: "Web Developer",
-    company: "Brain Mentors",
-    duration: "2022",
+    role: "AI & Web Development Intern ",
+    company: "TechSaksham",
+    duration: "2024",
     description:
-      "Worked with team to build high-performance apps, integrated AI features, and improved engagement by 10%.",
+      "I built an NLP-powered Healthcare AI Chatbot and gained hands-on experience in AI-driven full-stack web development for real-world healthcare applications.",
   },
   
   {
     role: "Web Developer Intern",
-    company: "Mobisoft Technologies",
-    duration: "2022 - 2023",
+    company: "Chaya Digital Agency ",
+    duration: "2025",
     description:
-      "In this internship , I gained valuable hands on experience and exposure to various aspects of web development.",
+      "Developed scalable, high-performance web applications using Next.js and React.js while collaborating with Chaya Digital Agency on real-time projects, contributing to feature development and UI/UX enhancements.",
   },
 {
     role: "Graduate Engineer",

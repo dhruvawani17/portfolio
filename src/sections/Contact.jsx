@@ -179,7 +179,7 @@ export default function Contact() {
                   Web Development
                 </option>
                 <option value="Mobile Application" className="text-black">
-                  Mobile Application
+                  AI Applications, Automation
                 </option>
                 <option value="Others" className="text-black">
                   Others
