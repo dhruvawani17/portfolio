@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 export default function Skills() {
 
 const skills = [
-    { icon: <FaJava />, name: "Java" },
+    // { icon: <FaJava />, name: "Java" },
     { icon: <FaReact />, name: "React" },
     { icon: <SiNextdotjs />, name: "Next.js" },
     { icon: <SiTypescript />, name: "TypeScript" },
@@ -18,7 +18,7 @@ const skills = [
     { icon: <SiDocker />, name: "Docker" },
     { icon: <DiNodejsSmall />, name: "Node.js" },
     { icon: <SiMongodb />, name: "MongoDB" },
-    { icon: <SiAngular />, name: "Angular" },
+    // { icon: <SiAngular />, name: "Angular" },
   ];
 const repeated = [...skills , ...skills]
 

@@ -8,10 +8,10 @@ import ParticleBackground from "../components/ParticlesBackground";
 
 const socials = [
   { Icon: FaYoutube, label: "YouTube", href: "https://www.youtube.com/@dhruvawani" },
-  { Icon: FaXTwitter, label: "X", href: "https://x.com/dhruvawani" },
-  { Icon: FaLinkedinIn, label: "LinkedIn", href: "https://www.linkedin.com/in/dhruvawani/" },
-  { Icon: FaInstagram, label: "Instagram", href: "https://www.instagram.com/dhruvawani/" },
-  { Icon: FaGithub, label: "GitHub", href: "https://github.com/dhruvawani" },
+  { Icon: FaXTwitter, label: "X", href: "https://x.com/Dhruva_wani_17" },
+  { Icon: FaLinkedinIn, label: "LinkedIn", href: "https://www.linkedin.com/in/dhruvawani17/" },
+  { Icon: FaInstagram, label: "Instagram", href: "https://www.instagram.com/dhruva_wani_17/" },
+  { Icon: FaGithub, label: "GitHub", href: "https://github.com/dhruvawani17" },
 ];
 
 
