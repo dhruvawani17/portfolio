@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "./components/Navbar";
+import PremiumNavbar from "./components/PremiumNavbar";
 import CustomCursor from "./components/CustomCursor";
 import Home from "./sections/Home";
 import About from "./sections/About";
@@ -15,7 +15,7 @@ export default function App() {
   return (
     <div className="relative animated-gradient text-white">
       <CustomCursor />
-      <Navbar />
+      <PremiumNavbar />
       <MusicPlayer />
 
       {/* Homepage always present (masked reveal) */}

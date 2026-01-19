@@ -70,7 +70,7 @@ export default function About() {
             // But we also want the inner edge (fissure)?
             // "Outline" usually implies the heavy outer silhouette.
             
-            const xc = 0.6 * side; // Left or Right center
+            const xc = 0.5 * side; // Left or Right center
             const xOffset = rx * Math.sqrt(term);
             
             // We want the outer boundary specifically? 
@@ -95,9 +95,9 @@ export default function About() {
 
             // Hemisphere Centers
             // Left: -0.6, Right: +0.6
-            // Increased offset to create a large central gap
+            // Decreased offset slightly to reduce central gap
             const xSign = x >= 0 ? 1 : -1;
-            const xCent = 0.6 * xSign; 
+            const xCent = 0.52 * xSign; 
             
             const dx = x - xCent;
             const dy = y;
@@ -160,7 +160,7 @@ export default function About() {
         scrollTrigger: {
             trigger: sectionRef.current,
             start: "top bottom", // Start when top of section hits bottom of viewport
-            end: "bottom center", // Extended end point
+            end: "center center", // End when center of section hits center of viewport (midway)
             scrub: 4, // SLOWER SCRUB for user request "come together more slowly"
         }
     });

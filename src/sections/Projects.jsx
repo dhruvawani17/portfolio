@@ -52,18 +52,21 @@ export default function Projects() {
         link: "https://github.com/dhruvawani17/ten-days-of-voice-agents-2025",
         bgColor: "#3d43f5ff",
         image: isMobile ? photo1 : img1, // Mobile vs desktop image
+        useIframe: false,
       },
       {
         title: "AI-Literacy Bridge",
         link: "https://ai-literacy-bridge.vercel.app/",
         bgColor: "#FFBF00",
         image: isMobile ? photo2 : img2,
+        useIframe: true,
       },
       {
         title: "Hospital Website",
         link: "https://hospital-1-o278.vercel.app",
         bgColor: "#9f529eff",
         image: isMobile ? photo3 : img3,
+        useIframe: true,
       },
     ],
     [isMobile] 
@@ -156,19 +159,33 @@ export default function Projects() {
                 } h-[55vh] sm:h-[66vh]`}
                 style={{ zIndex: 10, transition: "box-shadow 250ms ease" }}
               >
-                {/* Project Image */}
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover drop-shadow-xl md:drop-shadow-2xl"
-                  style={{
-                    position: "relative",
-                    zIndex: 10,
-                    filter: "drop-shadow(0 16px 40px rgba(0,0,0,0.65))",
-                    transition: "filter 200ms ease",
-                  }}
-                  loading="lazy"
-                />
+                {/* Project Visuals: Live Preview or Static Image */}
+                {project.useIframe ? (
+                  <iframe
+                    src={project.link}
+                    title={project.title}
+                    className="w-full h-full bg-white"
+                    style={{
+                      border: "none",
+                      position: "relative",
+                      zIndex: 10,
+                    }}
+                    loading="lazy"
+                  />
+                ) : (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover drop-shadow-xl md:drop-shadow-2xl"
+                    style={{
+                      position: "relative",
+                      zIndex: 10,
+                      filter: "drop-shadow(0 16px 40px rgba(0,0,0,0.65))",
+                      transition: "filter 200ms ease",
+                    }}
+                    loading="lazy"
+                  />
+                )}
               </div>
             </div>
           ))}
