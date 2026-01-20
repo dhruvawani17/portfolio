@@ -65,3 +65,34 @@
     overflow-x: clip;
   }
 }
+
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+}
+
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes borderRotate {
+  0% { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+
+.animate-border-rotate {
+  animation: borderRotate 4s linear infinite;
+}
+
