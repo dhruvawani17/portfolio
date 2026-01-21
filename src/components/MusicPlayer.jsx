@@ -3,16 +3,17 @@ import { FaPlay, FaPause } from "react-icons/fa";
 
 const MusicPlayer = () => {
   const playlist = [
-    "/iwasneverthere.mp3",
+    "/final.mp3",
+    "/final2.mp3",
     "/escapism.mp3",
-    "/blue.mp3",
-    "/YAD.mp3",
-    "/stars.mp3",
+    // "/blue.mp3",
+    // "/YAD.mp3",
+    // "/stars.mp3",
   ];
 
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [infoText, setInfoText] = useState("Wanna play music while scrolling?");
+  const [infoText, setInfoText] = useState("Start music");
   const [isVisible, setIsVisible] = useState(true);
   const audioRef = useRef(null);
   const lastTapTime = useRef(0);
@@ -47,7 +48,7 @@ const MusicPlayer = () => {
         p.catch(() => {
           // If blocked, reflect paused state
           setIsPlaying(false);
-          setInfoText("Wanna play music while scrolling?");
+          setInfoText("Start music");
         });
       }
       audio.removeEventListener("canplay", onCanPlay);
@@ -59,7 +60,7 @@ const MusicPlayer = () => {
   const playTrack = (index) => {
     setCurrentTrackIndex(index);
     setIsPlaying(true);
-    setInfoText("Double tap to change the music");
+    setInfoText("Change music on double tap");
     setSourceAndMaybePlay(playlist[index], true);
   };
 
@@ -71,12 +72,12 @@ const MusicPlayer = () => {
     if (isPlayingRef.current) {
       audio.pause();
       setIsPlaying(false);
-      setInfoText("Wanna play music while scrolling?");
+      setInfoText("Start music");
     } else {
       // Ensure current src is set correctly before playing
       setSourceAndMaybePlay(playlist[currentTrackIndex], true);
       setIsPlaying(true);
-      setInfoText("Double tap to change the music");
+      setInfoText("Change music on double tap");
     }
   };
 
@@ -190,20 +191,11 @@ const MusicPlayer = () => {
   }, []);
 
   return (
-    <div className={`fixed bottom-6 right-6 z-50 flex flex-col items-center space-y-2 transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-      <p className="text-xs text-gray-300 italic">{infoText}</p>
-
-      <audio
-        ref={audioRef}
-        src={playlist[currentTrackIndex]}
-        onEnded={handleTrackEnd}
-        preload="auto"
-      />
-
+    <div className={`fixed bottom-6 right-6 z-50 flex flex-col-reverse items-center gap-2 transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
       <button
         onClick={handleClick}
         onTouchStart={handleDoubleTapMobile}
-        className="p-4 rounded-full shadow-lg transition transform hover:scale-110"
+        className="peer p-4 rounded-full shadow-lg transition transform hover:scale-110"
         style={{
           background: "linear-gradient(135deg, #00f0ff, #00ff80)",
           boxShadow: "0 0 15px #00f0ff, 0 0 25px #00ff80",
@@ -213,6 +205,17 @@ const MusicPlayer = () => {
       >
         {isPlaying ? <FaPause size={20} /> : <FaPlay size={20} />}
       </button>
+
+      <p className="text-xs text-center text-gray-300 italic opacity-0 peer-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+        {infoText}
+      </p>
+
+      <audio
+        ref={audioRef}
+        src={playlist[currentTrackIndex]}
+        onEnded={handleTrackEnd}
+        preload="auto"
+      />
     </div>
   );
 };
