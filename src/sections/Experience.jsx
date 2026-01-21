@@ -2,6 +2,7 @@
 import React from "react";
 // Importing motion components and scroll hooks from Framer Motion for animations
 import { motion, useScroll, useTransform } from "framer-motion";
+// import ExperienceParticles from "../components/ExperienceParticles";
 
 // Array of experience objects containing job details
 const experiences = [
@@ -61,8 +62,9 @@ function ExperienceItem({ exp, idx, start, end, scrollYProgress, layout }) {
       <div className="relative flex-1 flex justify-center items-center min-w-0" key={`${exp.company}-${exp.role}-${idx}`}>
         {/* Marker dot on the timeline */}
         <motion.div
-          className="z-10 w-7 h-7 rounded-full bg-white shadow-[0_0_0_8px_rgba(255,255,255,0.1)]"
+          className="z-10 w-7 h-7 rounded-full bg-white shadow-[0_0_0_4px_rgba(255,255,255,0.1)] border-4 border-black"
           style={{ scale: markerScale, opacity: markerOpacity }}
+          whileHover={{ scale: 1.2, boxShadow: "0 0 15px 2px rgba(78, 205, 196, 0.8)" }}
         />
         {/* Small vertical line above or below the marker */}
         <motion.div
@@ -71,14 +73,30 @@ function ExperienceItem({ exp, idx, start, end, scrollYProgress, layout }) {
         />
         {/* Experience card with role, company, duration, description */}
         <motion.article
-          className={`absolute ${isAbove ? "bottom-12" : "top-12"} bg-gray-900/80 backdrop-blur border border-gray-700/70 rounded-xl p-7 w-[320px] shadow-lg cursor-pointer clickable`}
-          style={{ opacity: cardOpacity, y: cardY, maxWidth: "90vw" }}
+          className={`absolute ${isAbove ? "bottom-12" : "top-12"} rounded-xl p-[2px] w-[320px] shadow-lg cursor-pointer clickable overflow-hidden group`}
+          style={{ 
+            opacity: cardOpacity, 
+            y: cardY, 
+            maxWidth: "90vw",
+          }}
           transition={{ duration: 0.4, delay: idx * 0.15 }}
-          whileHover={{ scale: 1.05, borderColor: "rgba(255,255,255,0.5)", boxShadow: "0 10px 30px -10px rgba(0,255,255,0.3)" }}
+          whileHover={{ 
+            y: -5,
+            boxShadow: "0 10px 30px -10px rgba(0,255,255,0.2)" 
+          }}
         >
-          <h3 className="text-xl font-semibold text-white/90">{exp.role}</h3>
-          <p className="text-md text-gray-400 mb-3">{exp.company} | {exp.duration}</p>
-          <p className="text-md text-gray-300 break-words">{exp.description}</p>
+          {/* Animated Gradient Border Layer - Always visible to match Say Hello button style */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500%] h-[500%] bg-[conic-gradient(from_0deg,#f59e0b,#08e9f0,#2500f5,#d846ef78,#def604,#f59e0b)] animate-[spin_3s_linear_infinite]" />
+
+          {/* Content Container (Inner Hole) */}
+          <div className="relative h-full w-full bg-[#1a1a1a] rounded-[inherit] p-7 flex flex-col justify-center">
+             {/* Subtle gradient glow behind/inside - kept from previous */}
+             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-purple-500/5 to-pink-500/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none" />
+             
+             <h3 className="text-xl font-semibold text-white/90 relative z-10">{exp.role}</h3>
+             <p className="text-md text-gray-400 mb-3 relative z-10">{exp.company} | {exp.duration}</p>
+             <p className="text-md text-gray-300 break-words relative z-10">{exp.description}</p>
+          </div>
         </motion.article>
       </div>
     );
@@ -89,19 +107,32 @@ function ExperienceItem({ exp, idx, start, end, scrollYProgress, layout }) {
     <div key={`${exp.company}-${exp.role}-m-${idx}`} className="relative flex items-start">
       {/* Marker dot on mobile timeline */}
       <motion.div
-        className="absolute -left-[14px] top-3 z-10 w-7 h-7 rounded-full bg-white shadow-[0_0_0_8px_rgba(255,255,255,0.1)]"
+        className="absolute -left-[14px] top-3 z-10 w-7 h-7 rounded-full bg-white shadow-[0_0_0_4px_rgba(255,255,255,0.1)] border-4 border-black"
         style={{ scale: markerScale, opacity: markerOpacity }}
+        whileHover={{ scale: 1.2, boxShadow: "0 0 15px 2px rgba(78, 205, 196, 0.8)" }}
       />
       {/* Experience card (mobile version) */}
       <motion.article
-        className="bg-gray-900/80 backdrop-blur border border-gray-700/70 rounded-xl p-5 w-[90vw] max-w-sm ml-6 shadow-lg cursor-pointer clickable"
+        className="rounded-xl p-[2px] w-[90vw] max-w-sm ml-6 shadow-lg cursor-pointer clickable overflow-hidden group"
         style={{ opacity: cardOpacity, x: cardX }}
         transition={{ duration: 0.4, delay: idx * 0.15 }}
-        whileHover={{ scale: 1.02, borderColor: "rgba(255,255,255,0.5)", boxShadow: "0 10px 20px -10px rgba(0,255,255,0.3)" }}
+        whileHover={{ 
+            scale: 1.02, 
+            boxShadow: "0 10px 20px -10px rgba(0,255,255,0.2)" 
+        }}
       >
-        <h3 className="text-lg font-semibold break-words text-white/90">{exp.role}</h3>
-        <p className="text-sm text-gray-400 mb-2 break-words">{exp.company} | {exp.duration}</p>
-        <p className="text-sm text-gray-300 break-words">{exp.description}</p>
+        {/* Animated Gradient Border Layer */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500%] h-[500%] bg-[conic-gradient(from_0deg,#f59e0b,#08e9f0,#2500f5,#d846ef78,#def604,#f59e0b)] animate-[spin_3s_linear_infinite]" />
+
+        {/* Content Container (Inner Hole) */}
+        <div className="relative h-full w-full bg-[#1a1a1a] rounded-[inherit] p-5">
+            {/* Subtle gradient glow behind/inside */}
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-purple-500/5 to-pink-500/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none" />
+
+            <h3 className="text-lg font-semibold break-words text-white/90 relative z-10">{exp.role}</h3>
+            <p className="text-sm text-gray-400 mb-2 break-words relative z-10">{exp.company} | {exp.duration}</p>
+            <p className="text-sm text-gray-300 break-words relative z-10">{exp.description}</p>
+        </div>
       </motion.article>
     </div>
   );
@@ -170,12 +201,13 @@ const Experience = () => {
 
   return (
     <section id="experience" className="relative bg-black text-white">
+      {/* <ExperienceParticles /> */}
       {/* Main container with dynamic height */}
       <div ref={sceneRef} style={{ height: isMobile ? "auto" : `${SCENE_HEIGHT_VH}vh`, minHeight: isMobile ? "auto" : "150vh" }} className="relative">
         <div className={`flex flex-col ${isMobile ? "relative pb-10" : "sticky top-0 h-screen"}`}>
           {/* Section Title */}
           <div className="shrink-0 px-6 pt-8">
-            <h2 className="text-4xl sm:text-5xl font-semibold mt-5 text-center">Experience</h2>
+            <h2 className="text-4xl sm:text-5xl font-semibold mt-5 text-center font-['Sora',_sans-serif] bg-gradient-to-b from-[#FFFFFF] to-[#94A3B8] bg-clip-text text-transparent">Experience</h2>
           </div>
           {/* Timeline container */}
           <div className={`flex-1 flex items-start justify-center px-6 pb-10 pt-32 ${isMobile ? "overflow-visible" : "overflow-hidden"}`}>
@@ -185,7 +217,10 @@ const Experience = () => {
               <motion.div style={{ width: `${slideWidthPct}%`, x: shouldSlide ? xScroll : 0 }}>
                   {/* Horizontal timeline line */}
                   <div className="relative h-[6px] bg-white/15 rounded">
-                    <motion.div className="absolute left-0 top-0 h-[6px] bg-white rounded origin-left" style={{ width: lineWidth }} />
+                    <motion.div 
+                      className="absolute left-0 top-0 h-[6px] rounded origin-left bg-gradient-to-r from-[#45B7D1] via-[#4ECDC4] to-[#FF6B6B]" 
+                      style={{ width: lineWidth }} 
+                    />
                   </div>
                   {/* Experience items mapped for desktop */}
                   <div className="relative flex justify-between mt-0">
@@ -211,7 +246,10 @@ const Experience = () => {
             <div className="relative w-full max-w-md md:hidden">
               {/* Vertical timeline line */}
               <div className="absolute left-0 top-0 bottom-0 w-[6px] bg-white/15 rounded">
-                <motion.div className="absolute top-0 left-0 w-[6px] bg-white rounded origin-top" style={{ height: lineHeight }} />
+                <motion.div 
+                  className="absolute top-0 left-0 w-[6px] rounded origin-top bg-gradient-to-b from-[#45B7D1] via-[#4ECDC4] to-[#FF6B6B]" 
+                  style={{ height: lineHeight }} 
+                />
               </div>
               {/* Experience items mapped for mobile */}
               <div className="relative flex flex-col gap-10 ml-10 mt-6 pb-28">
@@ -219,28 +257,15 @@ const Experience = () => {
                   const start = idx === 0 ? 0 : thresholds[idx - 1];
                   const end = thresholds[idx];
                   return (
-                    <div key={`${exp.company}-${exp.role}-m-${idx}`} className="relative flex items-start">
-                      {/* Marker dot on mobile timeline */}
-                      <motion.div
-                        className="absolute -left-[14px] top-3 z-10 w-7 h-7 rounded-full bg-white shadow-[0_0_0_8px_rgba(255,255,255,0.1)]"
-                        initial={{ scale: 0, opacity: 0 }}
-                        whileInView={{ scale: 1, opacity: 1 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.4 }}
-                      />
-                      {/* Experience card (mobile version) */}
-                      <motion.article
-                        className="bg-gray-900/80 backdrop-blur border border-gray-700/70 rounded-xl p-5 w-[90vw] max-w-sm ml-6 shadow-lg"
-                        initial={{ opacity: 0, x: -24 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.4, delay: idx * 0.1 }}
-                      >
-                        <h3 className="text-lg font-semibold break-words">{exp.role}</h3>
-                        <p className="text-sm text-gray-400 mb-2 break-words">{exp.company} | {exp.duration}</p>
-                        <p className="text-sm text-gray-300 break-words">{exp.description}</p>
-                      </motion.article>
-                    </div>
+                    <ExperienceItem
+                      key={`${exp.company}-${exp.role}-m-${idx}`}
+                      exp={exp}
+                      idx={idx}
+                      start={start}
+                      end={end}
+                      scrollYProgress={scrollYProgress}
+                      layout="mobile"
+                    />
                   );
                 })}
               </div>
