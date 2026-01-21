@@ -121,7 +121,13 @@ opacity-20 blur-[120px] animate-pulse delay-500
 Modern Applications | Modern Technologies
       </motion.p>
 
-<div  className='relative w-full overflow-hidden'>
+<motion.div  
+  className='relative w-full overflow-hidden'
+  initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+  viewport={{ once: true }}
+>
 <motion.div 
 ref={trackRef}
 className='flex gap-10 text-6xl text-[#45B7D1]'
@@ -130,14 +136,14 @@ style={{x, whiteSpace: "nowrap" , willChange: "transform"}}
 
 {repeated.map((s,i) => (
   <div 
-  key={i} className='flex flex-col items-center gap-2 min-w-[120px]'
+  key={i} className='flex flex-col items-center gap-2 min-w-[120px] clickable group cursor-pointer'
   aria-label = {s.name}
   title = {s.name}
   >
-<span className='hover:scale-125 transition-transform duration-300'>
+<span className='group-hover:scale-125 group-hover:text-[#4ECDC4] group-hover:drop-shadow-[0_0_10px_rgba(78,205,196,0.6)] transition-all duration-300'>
 {s.icon}
 </span>
-<p className='text-sm'>
+<p className='text-sm group-hover:text-white transition-colors duration-300'>
   {s.name}
 </p>
   </div>
@@ -145,7 +151,7 @@ style={{x, whiteSpace: "nowrap" , willChange: "transform"}}
 </motion.div>
 
 
-</div>
+</motion.div>
 
 
     </section>

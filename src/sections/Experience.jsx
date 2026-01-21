@@ -71,11 +71,12 @@ function ExperienceItem({ exp, idx, start, end, scrollYProgress, layout }) {
         />
         {/* Experience card with role, company, duration, description */}
         <motion.article
-          className={`absolute ${isAbove ? "bottom-12" : "top-12"} bg-gray-900/80 backdrop-blur border border-gray-700/70 rounded-xl p-7 w-[320px] shadow-lg`}
+          className={`absolute ${isAbove ? "bottom-12" : "top-12"} bg-gray-900/80 backdrop-blur border border-gray-700/70 rounded-xl p-7 w-[320px] shadow-lg cursor-pointer clickable`}
           style={{ opacity: cardOpacity, y: cardY, maxWidth: "90vw" }}
           transition={{ duration: 0.4, delay: idx * 0.15 }}
+          whileHover={{ scale: 1.05, borderColor: "rgba(255,255,255,0.5)", boxShadow: "0 10px 30px -10px rgba(0,255,255,0.3)" }}
         >
-          <h3 className="text-xl font-semibold">{exp.role}</h3>
+          <h3 className="text-xl font-semibold text-white/90">{exp.role}</h3>
           <p className="text-md text-gray-400 mb-3">{exp.company} | {exp.duration}</p>
           <p className="text-md text-gray-300 break-words">{exp.description}</p>
         </motion.article>
@@ -93,11 +94,12 @@ function ExperienceItem({ exp, idx, start, end, scrollYProgress, layout }) {
       />
       {/* Experience card (mobile version) */}
       <motion.article
-        className="bg-gray-900/80 backdrop-blur border border-gray-700/70 rounded-xl p-5 w-[90vw] max-w-sm ml-6 shadow-lg"
+        className="bg-gray-900/80 backdrop-blur border border-gray-700/70 rounded-xl p-5 w-[90vw] max-w-sm ml-6 shadow-lg cursor-pointer clickable"
         style={{ opacity: cardOpacity, x: cardX }}
         transition={{ duration: 0.4, delay: idx * 0.15 }}
+        whileHover={{ scale: 1.02, borderColor: "rgba(255,255,255,0.5)", boxShadow: "0 10px 20px -10px rgba(0,255,255,0.3)" }}
       >
-        <h3 className="text-lg font-semibold break-words">{exp.role}</h3>
+        <h3 className="text-lg font-semibold break-words text-white/90">{exp.role}</h3>
         <p className="text-sm text-gray-400 mb-2 break-words">{exp.company} | {exp.duration}</p>
         <p className="text-sm text-gray-300 break-words">{exp.description}</p>
       </motion.article>

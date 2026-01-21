@@ -1,6 +1,7 @@
 import React from "react";
 import PremiumNavbar from "./components/PremiumNavbar";
-import CustomCursor from "./components/CustomCursor";
+// import CustomCursor from "./components/CustomCursor";
+import SplashCursor from "./components/SplashCursor";
 import Home from "./sections/Home";
 import About from "./sections/About";
 import Skills from "./sections/Skills";
@@ -14,7 +15,8 @@ import MusicPlayer from "./components/MusicPlayer";
 export default function App() {
   return (
     <div className="relative animated-gradient text-white">
-      <CustomCursor />
+      {/* <CustomCursor /> */}
+      <SplashCursor />
       <PremiumNavbar />
       <MusicPlayer />
 
