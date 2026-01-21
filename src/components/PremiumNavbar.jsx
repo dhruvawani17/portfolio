@@ -44,7 +44,7 @@ const PremiumNavbar = () => {
                 About
             </button>
 
-            <button onClick={() => scrollToSection("projects")} className="nav-link">
+            <button onClick={() => scrollToSection("work")} className="nav-link">
                 Work
             </button>
         </div>

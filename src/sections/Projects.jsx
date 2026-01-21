@@ -271,7 +271,7 @@ export default function Projects() {
   const activeProject = projects[activeIndex];
 
   return (
-    <section className="bg-[#050505] text-white relative">
+    <section id="work" className="bg-[#050505] text-white relative">
       {/* Header */}
       <div className="w-full flex justify-center pt-16 md:pt-24 pb-8 md:pb-16 z-20">
         <h2 className="text-4xl md:text-6xl text-center flex items-baseline gap-3">

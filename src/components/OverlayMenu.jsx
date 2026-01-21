@@ -32,7 +32,7 @@ export default function OverlayMenu({ isOpen, onClose }) {
               "Home",
               "About",
               "Skills",
-              "Projects",
+              "Work",
               "Experience",
               // "Testimonials",
               "Contact",

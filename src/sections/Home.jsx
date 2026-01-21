@@ -148,7 +148,7 @@ const Home = React.forwardRef((props, ref) => {
               transition={{ delay: 1.1, duration: 0.8 }}
             >
               <a
-                href="#projects"
+                href="#work"
                 className="px-6 py-3 rounded-full text-lg font-medium text-white 
                 bg-gradient-to-r from-[#45B7D1] via-[#4ECDC4] to-[#FF6B6B]
                 shadow-lg hover:scale-105 transition-all"
