@@ -15,6 +15,7 @@ const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [infoText, setInfoText] = useState("Start music");
   const [isVisible, setIsVisible] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
   const audioRef = useRef(null);
   const lastTapTime = useRef(0);
   const clickTimeout = useRef(null);
@@ -191,22 +192,12 @@ const MusicPlayer = () => {
   }, []);
 
   return (
-    <div className={`fixed bottom-6 right-6 z-50 flex flex-col-reverse items-center gap-2 transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-      <button
-        onClick={handleClick}
-        onTouchStart={handleDoubleTapMobile}
-        className="peer p-4 rounded-full shadow-lg transition transform hover:scale-110"
-        style={{
-          background: "linear-gradient(135deg, #00f0ff, #00ff80)",
-          boxShadow: "0 0 15px #00f0ff, 0 0 25px #00ff80",
-          color: "white",
-        }}
-        aria-label={isPlaying ? "Pause music" : "Play music"}
+    <div className={`fixed bottom-6 right-6 z-50 flex flex-col items-center space-y-2 transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+      <p
+        className={`text-xs text-center text-gray-300 italic transition-opacity duration-300 pointer-events-none whitespace-nowrap ${
+          isHovered ? "opacity-100" : "opacity-0"
+        }`}
       >
-        {isPlaying ? <FaPause size={20} /> : <FaPlay size={20} />}
-      </button>
-
-      <p className="text-xs text-center text-gray-300 italic opacity-0 peer-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
         {infoText}
       </p>
 
@@ -216,6 +207,22 @@ const MusicPlayer = () => {
         onEnded={handleTrackEnd}
         preload="auto"
       />
+
+      <button
+        onClick={handleClick}
+        onTouchStart={handleDoubleTapMobile}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className="p-4 rounded-full shadow-lg transition transform hover:scale-110"
+        style={{
+          background: "linear-gradient(135deg, #00f0ff, #00ff80)",
+          boxShadow: "0 0 15px #00f0ff, 0 0 25px #00ff80",
+          color: "white",
+        }}
+        aria-label={isPlaying ? "Pause music" : "Play music"}
+      >
+        {isPlaying ? <FaPause size={20} /> : <FaPlay size={20} />}
+      </button>
     </div>
   );
 };

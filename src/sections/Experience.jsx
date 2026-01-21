@@ -33,7 +33,7 @@ const experiences = [
     company: "K.J Somaiya Institute of Technology",
     duration: "2024 - Present",
     description:
-      "As a Google Student Ambassador, I actively promote Google's technologies and initiatives on campus, organize tech events, and foster a community of learners passionate about innovation and technology.",
+      "Developing core technical expertise in software engineering and AI, while cultivating problem-solving skills through competitive programming and hands-on projects.",
   },
 
 
