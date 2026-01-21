@@ -113,7 +113,7 @@ function ExperienceItem({ exp, idx, start, end, scrollYProgress, layout }) {
       />
       {/* Experience card (mobile version) */}
       <motion.article
-        className="rounded-xl p-[2px] w-[90vw] max-w-sm ml-6 shadow-lg cursor-pointer clickable overflow-hidden group"
+        className="relative rounded-xl p-[2px] w-[90vw] max-w-sm ml-6 shadow-lg cursor-pointer clickable overflow-hidden group"
         style={{ opacity: cardOpacity, x: cardX }}
         transition={{ duration: 0.4, delay: idx * 0.15 }}
         whileHover={{ 
@@ -125,7 +125,7 @@ function ExperienceItem({ exp, idx, start, end, scrollYProgress, layout }) {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500%] h-[500%] bg-[conic-gradient(from_0deg,#f59e0b,#08e9f0,#2500f5,#d846ef78,#def604,#f59e0b)] animate-[spin_3s_linear_infinite]" />
 
         {/* Content Container (Inner Hole) */}
-        <div className="relative h-full w-full bg-[#1a1a1a] rounded-[inherit] p-5">
+        <div className="relative h-full w-full bg-black rounded-[inherit] p-5">
             {/* Subtle gradient glow behind/inside */}
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-purple-500/5 to-pink-500/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none" />
 
