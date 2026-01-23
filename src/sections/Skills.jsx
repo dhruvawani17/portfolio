@@ -95,6 +95,10 @@ useEffect(()=> {
     <section id="skills" 
     ref={sectionRef}
     className="h-1/2 w-full pb-8 flex flex-col items-center justify-center relative bg-black text-white overflow-hidden">
+      
+      {/* Gradient transition from About section */}
+      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#111827] to-transparent z-20 pointer-events-none" />
+
       <div className='absolute inset-0 pointer-events-none'>
 <div className='absolute top-1/4 left-0 w-[300px] h-[300px] rounded-full bg-gradient-to-r from-[#FF6B6B] via-[#4ECDC4] to-[#45B7D1]
 opacity-20 blur-[120px] animate-pulse

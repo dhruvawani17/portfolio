@@ -44,6 +44,10 @@ const glowVariants = {
 const Footer = () => {
   return (
     <footer className="relative overflow-hidden bg-black">
+      
+      {/* Gradient transition from Contact section */}
+      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black to-transparent z-20 pointer-events-none" />
+
       {/* --- Background neon gradient effects --- */}
       {/* Blue glow overlay (top-right side) */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_60%_at_70%_35%,rgba(13,88,204,0.35),transparent_70%)]" />

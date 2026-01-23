@@ -85,6 +85,10 @@ export default function Contact() {
   return (
     <section
       id="contact" className="w-full min-h-screen relative bg-black overflow-hidden text-white py-20 px-6 md:px-20 flex flex-col md:flex-row items-center gap-10">
+      
+      {/* Gradient transition from Experience section */}
+      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black to-transparent z-20 pointer-events-none" />
+
       {/* Particles Background */}
       <ParticlesBackground />
 

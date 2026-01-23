@@ -298,6 +298,9 @@ export default function About() {
         <div className="absolute bottom-0 right-10 w-[420px] h-[420px] rounded-full bg-[#00F0FF] opacity-10 blur-[150px] animate-pulse delay-300" />
       </div>
 
+      {/* Gradient transition from Home section */}
+      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black to-transparent z-20 pointer-events-none" />
+
       {/* Content container */}
       <div 
         ref={containerRef}

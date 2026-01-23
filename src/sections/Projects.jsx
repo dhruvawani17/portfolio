@@ -271,6 +271,10 @@ export default function Projects() {
 
   return (
     <section id="work" className="bg-[#050505] text-white relative">
+      
+      {/* Gradient transition from Skills section */}
+      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black to-transparent z-20 pointer-events-none" />
+
       {/* Header */}
       <div className="w-full flex justify-center pt-16 md:pt-24 pb-8 md:pb-16 z-20">
         <h2 className="text-4xl md:text-6xl text-center flex items-baseline gap-3">

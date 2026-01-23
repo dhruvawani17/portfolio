@@ -201,6 +201,10 @@ const Experience = () => {
 
   return (
     <section id="experience" className="relative bg-black text-white">
+      
+      {/* Gradient transition from Projects section */}
+      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#050505] to-transparent z-20 pointer-events-none" />
+
       {/* <ExperienceParticles /> */}
       {/* Main container with dynamic height */}
       <div ref={sceneRef} style={{ height: isMobile ? "auto" : `${SCENE_HEIGHT_VH}vh`, minHeight: isMobile ? "auto" : "150vh" }} className="relative">
