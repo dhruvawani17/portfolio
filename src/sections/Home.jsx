@@ -220,7 +220,7 @@ const Home = React.forwardRef((props, ref) => {
             style={{ right: "-110px", width: "min(45vw, 780px)", maxHeight: "90vh" }}
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.4 }}
+            transition={{ delay: 1, duration: 1 }}
           />
         </motion.div>
       </div>
