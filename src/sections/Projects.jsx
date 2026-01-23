@@ -1,16 +1,16 @@
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { FaReact, FaNodeJs, FaExternalLinkAlt, FaPython } from "react-icons/fa";
-import { SiTailwindcss, SiVite, SiNextdotjs, SiFastapi, SiDocker, SiMongodb, SiTypescript, SiMysql, SiFirebase } from "react-icons/si";
+import { SiTailwindcss, SiVite, SiNextdotjs, SiFastapi, SiDocker, SiMongodb, SiTypescript, SiMysql } from "react-icons/si";
 import { BsStars, BsRobot } from "react-icons/bs";
 
 // Importing project images (desktop & mobile versions)
-import img1 from "../assets/img1.JPG";
-import img2 from "../assets/img2.JPG";
-import img3 from "../assets/img3.JPG";
-import photo1 from "../assets/photo1.JPG";
-import photo2 from "../assets/photo2.PNG";
-import photo3 from "../assets/photo3.png";
+import img1 from "../assets/img1.webp";
+import img2 from "../assets/img2.webp";
+import img3 from "../assets/img3.webp";
+import photo1 from "../assets/photo1.webp";
+import photo2 from "../assets/photo2.webp";
+import photo3 from "../assets/photo3.webp";
 
 const useIsMobile = (query = "(max-width: 1024px)") => {
   const [isMobile, setIsMobile] = useState(false);
@@ -237,7 +237,7 @@ export default function Projects() {
         accentColor: "#FFBF00",
         gradient: "linear-gradient(135deg, #FFBF00 0%, #FF5F6D 100%)",
         image: isMobile ? photo2 : img2,
-        useIframe: true,
+        useIframe: false,
       },
       {
         id: 3,
@@ -256,13 +256,12 @@ export default function Projects() {
           { name: "Vite", icon: <SiVite /> },
           { name: "Tailwind", icon: <SiTailwindcss /> },
           { name: "Node.js", icon: <FaNodeJs /> },
-          { name: "Firebase", icon: <SiFirebase /> },
         ],
         link: "https://hospital-1-o278.vercel.app",
         accentColor: "#9f529e",
         gradient: "linear-gradient(135deg, #9f529e 0%, #f77062 100%)",
         image: isMobile ? photo3 : img3,
-        useIframe: true,
+        useIframe: false,
       },
     ],
     [isMobile]

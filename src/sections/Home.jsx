@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import avatar from "../assets/avator.png";
+import avatar from "../assets/avator.webp";
 import { FaXTwitter, FaLinkedinIn, FaGithub } from "react-icons/fa6";
 import { FaYoutube, FaInstagram } from "react-icons/fa6";
 import ParticleBackground from "../components/ParticlesBackground";

@@ -11,7 +11,7 @@ import emailjs from "@emailjs/browser";
 import ParticlesBackground from "../components/ParticlesBackground.jsx";
 
 // Importing the contact image asset
-import Astra from "../assets/Astra.png";
+import Astra from "../assets/Astra.webp";
 
 // Reading EmailJS credentials from environment variables (Vite)
 const SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
