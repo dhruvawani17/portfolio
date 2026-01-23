@@ -8,8 +8,8 @@ import { BsStars, BsRobot } from "react-icons/bs";
 import img1 from "../assets/img1.webp";
 import img2 from "../assets/img2.webp";
 import img3 from "../assets/img3.webp";
-import photo1 from "../assets/photo1.webp";
-import photo2 from "../assets/photo2.webp";
+import photo1 from "../assets/Photo1.webp";
+import photo2 from "../assets/Photo2.webp";
 import photo3 from "../assets/photo3.webp";
 
 const useIsMobile = (query = "(max-width: 1024px)") => {
