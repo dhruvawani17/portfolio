@@ -122,7 +122,7 @@ Modern Applications | Modern Technologies
       </motion.p>
 
 <motion.div  
-  className='relative w-full overflow-hidden'
+  className='relative w-full overflow-hidden py-8'
   initial={{ opacity: 0, y: 50 }}
   whileInView={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
