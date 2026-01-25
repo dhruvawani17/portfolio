@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { FaReact, FaNodeJs, FaExternalLinkAlt, FaPython } from "react-icons/fa";
+import { FaReact, FaNodeJs, FaExternalLinkAlt, FaPython, FaArrowDown } from "react-icons/fa";
 import { SiTailwindcss, SiVite, SiNextdotjs, SiFastapi, SiDocker, SiMongodb, SiTypescript, SiMysql } from "react-icons/si";
 import { BsStars, BsRobot } from "react-icons/bs";
 
@@ -151,13 +151,23 @@ const ProjectRow = ({ project, index, updateActiveImage }) => {
                 />
                 <text fontSize="12" fontWeight="bold" letterSpacing="2">
                   <textPath href="#textPath" startOffset="0%">
-                    VIEW DETAILS • VIEW DETAILS •
+                    SEE IT IN ACTION • EXPLORE •
                   </textPath>
                 </text>
               </svg>
             </div>
             <FaExternalLinkAlt className="text-white text-xl relative z-10" />
           </a>
+
+          {/* Animated Down Arrow */}
+          <motion.div 
+            className="absolute bottom-2 left-1/2 -translate-x-1/2 z-40 text-white/50"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            style={{ transform: "translateZ(40px)" }}
+          >
+            <FaArrowDown size={20} />
+          </motion.div>
         </div>
       </motion.div>
     </motion.div>
