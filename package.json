@@ -11,6 +11,12 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@fontsource/bangers": "^5.2.8",
+    "@fontsource/fredoka": "^5.2.10",
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/playfair-display": "^5.2.8",
+    "@fontsource/sacramento": "^5.2.8",
+    "@fontsource/sora": "^5.2.8",
     "@splinetool/react-spline": "^4.1.0",
     "@splinetool/runtime": "^1.12.36",
     "@tailwindcss/vite": "^4.1.11",
