@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cerebras/cerebras_cloud_sdk": "^1.64.1",
     "@emailjs/browser": "^4.4.1",
     "@fontsource/bangers": "^5.2.8",
     "@fontsource/fredoka": "^5.2.10",
@@ -26,6 +27,7 @@
     "framer-motion": "^12.23.12",
     "gsap": "^3.13.0",
     "locomotive-scroll": "^4.1.4",
+    "lucide-react": "^0.563.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-icons": "^5.5.0",

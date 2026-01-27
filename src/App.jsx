@@ -11,6 +11,7 @@ import Experience from "./sections/Experience";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 import MusicPlayer from "./components/MusicPlayer";
+import PortfolioChatbot from "./components/PortfolioChatbot";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
       <SplashCursor />
       <PremiumNavbar />
       <MusicPlayer />
+      <PortfolioChatbot />
 
       {/* Homepage always present (masked reveal) */}
       <Home />
