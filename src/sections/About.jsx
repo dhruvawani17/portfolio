@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from "framer-motion";
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -10,10 +10,18 @@ export default function About() {
   const canvasRef = useRef(null);
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 750);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+        window.removeEventListener('resize', checkMobile);
+        return;
+    }
     const ctx = canvas.getContext('2d');
     
     const resizeObserver = new ResizeObserver(() => {
@@ -270,6 +278,7 @@ export default function About() {
 
     return () => {
         window.removeEventListener("mousemove", handleMouseMove);
+        window.removeEventListener('resize', checkMobile);
         resizeObserver.disconnect();
         cancelAnimationFrame(animId);
         if (tl) tl.kill();
@@ -286,7 +295,7 @@ export default function About() {
       {/* Brain Canvas Background - positioned absolute so it overlays/underlays content */}
       <canvas 
         ref={canvasRef} 
-        className="hidden sm:block absolute inset-0 w-full h-full pointer-events-none z-0 opacity-100"
+        className="hidden md:block absolute inset-0 w-full h-full pointer-events-none z-0 opacity-100"
       />
 
       {/* Darker Background for high contrast */}
@@ -354,6 +363,14 @@ export default function About() {
                   className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-center"
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  {...(!isMobile ? {
+                      whileHover: { 
+                          scale: 1.05, 
+                          borderColor: "rgba(78, 205, 196, 0.5)", 
+                          boxShadow: "0 0 15px rgba(78, 205, 196, 0.2)",
+                          backgroundColor: "rgba(255, 255, 255, 0.1)"
+                      }
+                  } : {})}
                   transition={{ duration: 0.4, delay: 0.05 * i }}
                   viewport={{ once: true, amount: 0.3 }}
                 >
@@ -367,20 +384,28 @@ export default function About() {
 
             {/* CTAs */}
             <div className="mt-6 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start">
-              <a
+              <motion.a
                 href="#work"
                 className="inline-flex items-center justify-center rounded-lg bg-white text-black font-semibold px-5 py-3 hover:bg-gray-200 transition"
                 aria-label="View my work"
+                {...(!isMobile ? {
+                    whileHover: { scale: 1.05, boxShadow: "0 0 20px rgba(255,255,255,0.4)" },
+                    whileTap: { scale: 0.95 }
+                } : {})}
               >
                 View Work
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 href="#contact"
                 className="inline-flex items-center justify-center rounded-lg border border-white/20 bg-white/10 text-white px-5 py-3 hover:bg-white/20 transition"
                 aria-label="Get in touch"
+                {...(!isMobile ? {
+                    whileHover: { scale: 1.05, boxShadow: "0 0 20px rgba(255,255,255,0.1)", borderColor: "rgba(255,255,255,0.8)" },
+                    whileTap: { scale: 0.95 }
+                } : {})}
               >
                 Get in Touch
-              </a>
+              </motion.a>
             </div>
           </div>
         </motion.div>
