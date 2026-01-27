@@ -77,6 +77,7 @@ const ProjectRow = ({ project, index, updateActiveImage }) => {
       <motion.div
         className="relative w-full h-full rounded-[30px] p-[2px] shadow-2xl transition-all duration-500 hover:shadow-[0_0_50px_-12px_rgba(255,255,255,0.2)] group overflow-hidden bg-[#1a1a1a]"
         style={{ 
+          // Disable 3D tilt on mobile if needed, but request is to keep border animation
           rotateX, 
           rotateY, 
           transformStyle: "preserve-3d" // Enable 3D transform for children
@@ -84,7 +85,7 @@ const ProjectRow = ({ project, index, updateActiveImage }) => {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Animated Gradient Border */}
+        {/* Animated Gradient Border - Kept same for all screen sizes per request */}
         <div 
           className="absolute inset-0 animate-border-rotate" 
           style={{ 
