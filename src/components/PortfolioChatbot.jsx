@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageSquare, X, Send, User, Bot, Loader2 } from 'lucide-react';
 import Cerebras from '@cerebras/cerebras_cloud_sdk';
-
+const CEREBRAS_API_KEY = import.meta.env.VITE_CEREBRAS_API_KEY;
 const SYSTEM_PROMPT = `
 You are an AI assistant for Dhruva Wani's portfolio. You are helpful, professional, and concise.
 
