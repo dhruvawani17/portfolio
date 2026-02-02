@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 function SplashCursor({
   SIM_RESOLUTION = 128,
   DYE_RESOLUTION = 512,
-  CAPTURE_RESOLUTION = 256,
+  CAPTURE_RESOLUTION = 512,
   DENSITY_DISSIPATION = 3.5,
   VELOCITY_DISSIPATION = 2,
   PRESSURE = 0.1,
@@ -1057,12 +1057,15 @@ function SplashCursor({
       if (divergence) deleteFBO(divergence);
       if (curl) deleteFBO(curl);
       if (pressure) { deleteFBO(pressure.read); deleteFBO(pressure.write); }
+<<<<<<< HEAD
 
       try {
            gl.getExtension('WEBGL_lose_context')?.loseContext();
       } catch (e) {
          // Ignore
       }
+=======
+>>>>>>> d1852b0 (leaks managed)
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
