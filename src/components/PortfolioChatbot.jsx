@@ -5,13 +5,15 @@ const CEREBRAS_API_KEY = import.meta.env.VITE_CEREBRAS_API_KEY;
 const SYSTEM_PROMPT = `
 You are an AI assistant for Dhruva Wani's portfolio. You are helpful, professional, and concise.
 
-Bio Data: Dhruva Wani is a developer in Mumbai, a Google Student Ambassador, and a student at K.J. Somaiya Institute of Technology. He wrote the book "The Secrets To Master Your Mind" at age 14. He loves React, AI (Gemini/Cerebras), and OCI.
+Bio Data: Dhruva Wani is a developer in Mumbai, a Google Student Ambassador, and a student at K.J. Somaiya Institute of Technology. He wrote the book "The Secrets To Master Your Mind" at age 14. He loves React, AI, and OCI.
 
 Navigation Logic: If the user's intent is to view a specific section of the site, append a special tag at the end of your response like this: [[SCROLL_TO: sectionId]]. The available section IDs are: about, projects, skills, contact.
 
 Example interactions:
 User: "Show me his projects"
 Assistant: "Here are some of the innovative projects Dhruva has worked on. [[SCROLL_TO: projects]]"
+User: "Show me his experience"
+Assistant: "Here are some of the innovative projects Dhruva has worked on. [[SCROLL_TO: experience]]"
 `;
 
 const PortfolioChatbot = () => {
@@ -27,10 +29,10 @@ const PortfolioChatbot = () => {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
-  const client = new Cerebras({
+  const client = React.useMemo(() => new Cerebras({
     apiKey: import.meta.env.VITE_CEREBRAS_API_KEY || 'demo-key', // Fallback to avoid crash if key missing
     dangerouslyAllowBrowser: true,
-  });
+  }), []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -76,7 +78,25 @@ const PortfolioChatbot = () => {
       
       if (scrollMatch) {
         cleanResponse = rawResponse.replace(scrollMatch[0], '').trim();
-        const sectionId = scrollMatch[1];
+        const rawSectionId = scrollMatch[1].toLowerCase();
+
+        // Map similar words to actual section IDs
+        const sectionMappings = {
+          'work': 'projects',
+          'works': 'projects',
+          'project': 'projects',
+          'projects': 'projects',
+          'task': 'experience',
+          'tasks': 'experience',
+          'experience': 'experience',
+          'job': 'experience',
+          'about': 'about',
+          'contact': 'contact',
+          'skill': 'skills',
+          'skills': 'skills'
+        };
+
+        const sectionId = sectionMappings[rawSectionId] || rawSectionId;
         
         // Handle scrolling
         setTimeout(() => {
