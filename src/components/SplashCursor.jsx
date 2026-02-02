@@ -3,8 +3,8 @@ import { useEffect, useRef } from 'react';
 
 function SplashCursor({
   SIM_RESOLUTION = 128,
-  DYE_RESOLUTION = 1440,
-  CAPTURE_RESOLUTION = 512,
+  DYE_RESOLUTION = 512,
+  CAPTURE_RESOLUTION = 256,
   DENSITY_DISSIPATION = 3.5,
   VELOCITY_DISSIPATION = 2,
   PRESSURE = 0.1,
@@ -578,6 +578,11 @@ function SplashCursor({
           filtering
         );
 
+      // Manually delete old FBOs to prevent memory leaks on resize
+      if (divergence) deleteFBO(divergence);
+      if (curl) deleteFBO(curl);
+      if (pressure) { deleteFBO(pressure.read); deleteFBO(pressure.write); }
+
       divergence = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
       curl = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
       pressure = createDoubleFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
@@ -644,17 +649,25 @@ function SplashCursor({
       };
     }
 
+    function deleteFBO(fbo) {
+      if (!fbo) return;
+      gl.deleteFramebuffer(fbo.fbo);
+      gl.deleteTexture(fbo.texture);
+    }
+
     function resizeFBO(target, w, h, internalFormat, format, type, param) {
       let newFBO = createFBO(w, h, internalFormat, format, type, param);
       copyProgram.bind();
       gl.uniform1i(copyProgram.uniforms.uTexture, target.attach(0));
       blit(newFBO);
+      deleteFBO(target);
       return newFBO;
     }
 
     function resizeDoubleFBO(target, w, h, internalFormat, format, type, param) {
       if (target.width === w && target.height === h) return target;
       target.read = resizeFBO(target.read, w, h, internalFormat, format, type, param);
+      deleteFBO(target.write);
       target.write = createFBO(w, h, internalFormat, format, type, param);
       target.width = w;
       target.height = h;
@@ -1038,6 +1051,18 @@ function SplashCursor({
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
+
+      if (dye) { deleteFBO(dye.read); deleteFBO(dye.write); }
+      if (velocity) { deleteFBO(velocity.read); deleteFBO(velocity.write); }
+      if (divergence) deleteFBO(divergence);
+      if (curl) deleteFBO(curl);
+      if (pressure) { deleteFBO(pressure.read); deleteFBO(pressure.write); }
+
+      try {
+           gl.getExtension('WEBGL_lose_context')?.loseContext();
+      } catch (e) {
+         // Ignore
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
