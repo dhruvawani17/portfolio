@@ -2,13 +2,13 @@
 import { useEffect, useRef } from 'react';
 
 function SplashCursor({
-  SIM_RESOLUTION = 128,
-  DYE_RESOLUTION = 512,
+  SIM_RESOLUTION = 64,
+  DYE_RESOLUTION = 256,
   CAPTURE_RESOLUTION = 512,
   DENSITY_DISSIPATION = 3.5,
   VELOCITY_DISSIPATION = 2,
   PRESSURE = 0.1,
-  PRESSURE_ITERATIONS = 20,
+  PRESSURE_ITERATIONS = 10,
   CURL = 3,
   SPLAT_RADIUS = 0.2,
   SPLAT_FORCE = 6000,
@@ -578,11 +578,6 @@ function SplashCursor({
           filtering
         );
 
-      // Manually delete old FBOs to prevent memory leaks on resize
-      if (divergence) deleteFBO(divergence);
-      if (curl) deleteFBO(curl);
-      if (pressure) { deleteFBO(pressure.read); deleteFBO(pressure.write); }
-
       divergence = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
       curl = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
       pressure = createDoubleFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
@@ -1057,15 +1052,6 @@ function SplashCursor({
       if (divergence) deleteFBO(divergence);
       if (curl) deleteFBO(curl);
       if (pressure) { deleteFBO(pressure.read); deleteFBO(pressure.write); }
-<<<<<<< HEAD
-
-      try {
-           gl.getExtension('WEBGL_lose_context')?.loseContext();
-      } catch (e) {
-         // Ignore
-      }
-=======
->>>>>>> d1852b0 (leaks managed)
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
