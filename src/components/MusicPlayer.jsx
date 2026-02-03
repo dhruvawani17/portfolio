@@ -61,7 +61,7 @@ const MusicPlayer = () => {
   const playTrack = (index) => {
     setCurrentTrackIndex(index);
     setIsPlaying(true);
-    setInfoText("Change music on double tap");
+    setInfoText("Double toggle");
     setSourceAndMaybePlay(playlist[index], true);
   };
 
