@@ -1,12 +1,15 @@
 {
-  "rewrites": [
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
     {
       "source": "/mac",
-      "destination": "https://mac-ochre.vercel.app"
+      "destination": "https://mac-ochre.vercel.app",
+      "permanent": true
     },
     {
       "source": "/mac/:path*",
-      "destination": "https://mac-ochre.vercel.app/:path*"
+      "destination": "https://mac-ochre.vercel.app/:path*",
+      "permanent": true
     }
   ]
 }
