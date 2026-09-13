@@ -7,10 +7,6 @@ const nextConfig: NextConfig = {
         source: "/mac",
         destination: "https://mac-ochre.vercel.app",
       },
-      {
-        source: "/mac/:path*",
-        destination: "https://mac-ochre.vercel.app/:path*",
-      },
     ];
   },
 };
