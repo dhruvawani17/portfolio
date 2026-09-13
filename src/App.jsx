@@ -14,6 +14,30 @@ import MusicPlayer from "./components/MusicPlayer";
 import PortfolioChatbot from "./components/PortfolioChatbot";
 
 export default function App() {
+  const isMac =
+    typeof window !== "undefined" &&
+    (window.location.pathname === "/mac" ||
+      window.location.pathname.startsWith("/mac/"));
+
+  React.useEffect(() => {
+    if (isMac) {
+      document.title = "Brand My Mac — Let your brand travel";
+    }
+  }, [isMac]);
+
+  if (isMac) {
+    return (
+      <div className="fixed inset-0 w-screen h-screen overflow-hidden bg-black z-[99999]">
+        <iframe
+          src="https://mac-ochre.vercel.app"
+          title="Brand My Mac"
+          className="w-full h-full border-none block"
+          allow="fullscreen; clipboard-read; clipboard-write"
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="relative animated-gradient text-white">
       {/* <CustomCursor /> */}
